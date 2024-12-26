@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="150dp"
+        tools:layout_editor_absoluteY="150dp">
+        <!--    앱 타이틀     -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:gravity="center"
+            android:text="Hello World!"
+            android:textSize="34sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="350dp"
+        android:padding="16dp">
+        <!--    아이디 입력    -->
+        <EditText
+            android:id="@+id/editTextTextUserid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="16"
+            android:minLength="8"
+            android:inputType="text"
+            android:hint="아이디 입력" />
+        <!--    비밀번호 입력     -->
+        <EditText
+            android:id="@+id/editTextTextPasswd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="16"
+            android:minLength="8"
+            android:inputType="textPassword"
+            android:hint="비밀번호 입력"/>
+        <!--    비밀번호 입력     -->
+        <EditText
+            android:id="@+id/editTextTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="16"
+            android:minLength="8"
+            android:inputType="text"
+            android:hint="이름 입력" />
+        <!--    이메일 입력    -->
+        <EditText
+            android:id="@+id/editTextTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="이메일 입력"/>
+        <!--    회원 가입   -->
+        <Button
+            android:id="@+id/buttonJoin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="회원가입" />
+        <!--    회원 조회    -->
+        <Button
+            android:id="@+id/buttonUserList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="회원 조회" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
