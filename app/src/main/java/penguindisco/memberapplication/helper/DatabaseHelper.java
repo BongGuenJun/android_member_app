@@ -1,5 +1,6 @@
 package penguindisco.memberapplication.helper;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -23,8 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String SQL = "create table member (" +
-                "mno int primary key autoincrement,"+
-                "userid varchar(18) primary key unique," +
+                "mno integer primary key autoincrement,"+
+                "userid varchar(18) unique," +
                 "passwd varchar(18) not null," +
                 "name varchar(18) not null," +
                 "email text not null," +
@@ -34,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //테이블 재생성시 사용
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.excSQL("drop table if exists member");
+        db.execSQL("drop table if exists member");
         onCreate(db);
     }
 
