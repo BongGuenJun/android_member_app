@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     //데이터베이스 초기화 변수
@@ -26,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String SQL = "create table member (" +
-                "mno integer primary key autoincrement,"+
+                "mno integer primary key autoincrement," +
                 "userid varchar(18) unique," +
                 "passwd varchar(18) not null," +
                 "name varchar(18) not null," +
@@ -34,6 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "regdate date default current_timestamp)";
         db.execSQL(SQL);
     }
+
     //테이블 재생성시 사용
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -43,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //회원 가입 처리
     public boolean insertMember(
-            String userid, String passwd, String name, String email){
+            String userid, String passwd, String name, String email) {
         //테이블에 레코드를 저장하기 위해 초기화
         SQLiteDatabase db = this.getWritableDatabase();
         //저장할 데이터를 컨테이너로 생성
@@ -64,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //아이디 중복 확인
-    public boolean useridCheck(String userid){
+    public boolean useridCheck(String userid) {
         //아이디 중복체크를 위해 sqlite 초기화
         SQLiteDatabase db = this.getReadableDatabase();
         //커서 초기화
@@ -83,4 +87,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exists;
     }
 
+    //회원 목록 조회 메서드
+    public List<String> getAllUers() {
+        //변수초기화
+        String sql = "select userid, name, email from member";
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<String> userList = new ArrayList<>();
+
+        //쿼리 실행
+        Cursor cur = db.rawQuery(sql, null);
+
+        //결과 집합(커서) 처리
+        if (cur.moveToFirst()) { //읽어올 데이터가 존재한다면
+            do {
+                //커서로 부터 데이터 가져오기
+                String userid = cur.getString(0);
+                String name = cur.getString(1);
+                String email = cur.getString(2);
+
+                //가져온 데이터들 문자열로 조합
+                String userinfo = "아이디 : " + userid + "\n"
+                                    + "이름 : " + name + "\n"
+                                    + "이메일 : " + email ;
+
+                //조합한 문자열을 동적배열에 저장
+                userList.add(userinfo);
+
+            } while (cur.moveToNext()); //다음 데이터를 읽어옴
+        }
+
+        //디비 연결 해제
+        cur.close();
+        db.close();
+
+        return userList;
+    }
 }
