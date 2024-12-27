@@ -95,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<String> userList = new ArrayList<>();
 
         //쿼리 실행
+        //rawQuery(질의문,매개변수)
         Cursor cur = db.rawQuery(sql, null);
 
         //결과 집합(커서) 처리
@@ -107,8 +108,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 //가져온 데이터들 문자열로 조합
                 String userinfo = "아이디 : " + userid + "\n"
-                                    + "이름 : " + name + "\n"
-                                    + "이메일 : " + email ;
+                        + "이름 : " + name + "\n"
+                        + "이메일 : " + email;
 
                 //조합한 문자열을 동적배열에 저장
                 userList.add(userinfo);
@@ -121,5 +122,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return userList;
+
+    }
+
+    //로그인 확인
+    public boolean loginUser(String userid, String passwd) {
+
+        String sql = "select form member where userid=? and apsswd=?";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // 로그인 확인 질의문 작성
+        String[] params = new String[] {userid, passwd};
+        Cursor cur = db.rawQuery(sql,params );
+
+        boolean isLoggedIn = cur.getCount() > 0;
+
+        cur.close();
+        db.close();
+
+
+        return isLoggedIn;
     }
 }
